@@ -18,7 +18,19 @@ namespace CalculatorLibrary
             writer.WritePropertyName("Operations");
             writer.WriteStartArray();
         }
-        // CalculatorLibrary.cs
+        public void PreviousCalculations()
+        {
+            try
+            {
+                List<string> logLines = File.ReadAllLines("calculatorlog.json").ToList();
+                Console.WriteLine("Previous calculations:");
+                Console.WriteLine(logLines);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error reading log file: {ex.Message}");
+            }
+        }
         public double DoOperation(double num1, double num2, string op)
         {
             double result = double.NaN; // Default value is "not-a-number" if an operation, such as division, could result in an error.

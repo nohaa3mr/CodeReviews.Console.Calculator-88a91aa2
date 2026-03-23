@@ -15,6 +15,7 @@ namespace CalculatorProgram
             Console.WriteLine("------------------------\n");
 
             Calculator calculator = new Calculator();
+            var numberOfCalculations = 0;
             while (!endApp)
             {
                 // Declare variables and set to empty.
@@ -68,8 +69,14 @@ namespace CalculatorProgram
                         if (double.IsNaN(result))
                         {
                             Console.WriteLine("This operation will result in a mathematical error.\n");
+                            numberOfCalculations--; // Don't count this one.
                         }
-                        else Console.WriteLine("Your result: {0:0.##}\n", result);
+                        else {
+                          Console.WriteLine("Your result: {0:0.##}\n", result); 
+                          numberOfCalculations++;
+                        }
+                        calculator.PreviousCalculations();
+
                     }
                     catch (Exception e)
                     {
@@ -84,6 +91,7 @@ namespace CalculatorProgram
 
                 Console.WriteLine("\n"); // Friendly linespacing.
             }
+          
             calculator.Finish();
             return;
         }
