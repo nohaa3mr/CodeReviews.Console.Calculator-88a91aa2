@@ -51,9 +51,73 @@ namespace CalculatorLibrary
                     }
                     writer.WriteValue("Divide");
                     break;
-                // Return text for an incorrect option entry.
+
+                     case "sqrt":
+                    if (num1 >= 0)
+                    {
+                        result = Math.Sqrt(num1);
+                    }
+                    else
+                    {
+                        writer.WriteValue("Square Root");
+                        writer.WritePropertyName("Error");
+                        writer.WriteValue("Cannot take square root of a negative number.");
+                        writer.WriteEndObject();
+                        return result;
+                    }
+                    break;
+
+                case "pow":
+                    result = Math.Pow(num1, num2);
+                    writer.WriteValue("Power");
+                    break;
+
+                case "Trig":
+                    if (num2 == 0)
+                    {
+                        result = Math.Sin(num1);
+                        writer.WriteValue("Sine");
+                    }
+                    else
+                    {
+                        if (num2 == 1)
+                        {
+                            result = Math.Cos(num1);
+                            writer.WriteValue("Cosine");
+                        }
+                        else if (num2 == 2)
+                        {
+                            result = Math.Tan(num1);
+                            writer.WriteValue("Tangent");
+                        }
+                        else
+                        {
+                            writer.WriteValue("Trigonometric Function");
+                            writer.WritePropertyName("Error");
+                            writer.WriteValue("Invalid trigonometric function code.");
+                            writer.WriteEndObject();
+                            return result;
+                        }
+                    }
+                    break;
+                case "log":
+                    if (num1 > 0)
+                    {
+                        result = Math.Log(num1);
+                    }
+                    else
+                    {
+                        writer.WriteValue("Logarithm");
+                        writer.WritePropertyName("Error");
+                        writer.WriteValue("Cannot take logarithm of a non-positive number.");
+                        writer.WriteEndObject();
+                        return result;
+                    }
+                    break;
                 default:
                     break;
+
+
             }
             writer.WritePropertyName("Result");
             writer.WriteValue(result);
