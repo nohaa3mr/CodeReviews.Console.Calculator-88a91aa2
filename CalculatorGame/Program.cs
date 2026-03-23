@@ -52,12 +52,16 @@ namespace CalculatorProgram
                 Console.WriteLine("\ts - Subtract");
                 Console.WriteLine("\tm - Multiply");
                 Console.WriteLine("\td - Divide");
+                Console.WriteLine("\tsqrt - Square Root");
+                Console.WriteLine("\tpow - Power");
+                Console.WriteLine("\tTrig - Trigonometry");
+                Console.WriteLine("\tlog - Logarithm");
                 Console.Write("Your option? ");
 
                 string? op = Console.ReadLine();
 
                 // Validate input is not null, and matches the pattern
-                if (op == null || !Regex.IsMatch(op, "[a|s|m|d]"))
+                if (op == null || !Regex.IsMatch(op, "^(a|s|m|d|sqrt|pow|Trig|log)$"))
                 {
                     Console.WriteLine("Error: Unrecognized input.");
                 }

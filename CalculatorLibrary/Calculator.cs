@@ -24,7 +24,10 @@ namespace CalculatorLibrary
             {
                 List<string> logLines = File.ReadAllLines("calculatorlog.json").ToList();
                 Console.WriteLine("Previous calculations:");
-                Console.WriteLine(logLines);
+                foreach (var line in logLines)
+                {
+                    Console.WriteLine(line);
+                }
             }
             catch (Exception ex)
             {
@@ -85,31 +88,43 @@ namespace CalculatorLibrary
                     break;
 
                 case "Trig":
-                    if (num2 == 0)
+                    Console.Write("Choose trig function (sin, cos, tan): ");
+                    string trigChoice = Console.ReadLine();
+
+                    switch (trigChoice)
                     {
-                        result = Math.Sin(num1);
-                        writer.WriteValue("Sine");
-                    }
-                    else
-                    {
-                        if (num2 == 1)
-                        {
-                            result = Math.Cos(num1);
+                        case "sin":
+                            result = Math.Sin(num1 * Math.PI / 180);
+                            writer.WriteValue("Sine");
+                            break;
+
+                        case "cos":
+                            result = Math.Cos(num1 * Math.PI / 180);
                             writer.WriteValue("Cosine");
-                        }
-                        else if (num2 == 2)
-                        {
-                            result = Math.Tan(num1);
+                            break;
+
+                        case "tan":
+                            double radians = num1 * Math.PI / 180;
+
+                            if (Math.Cos(radians) == 0)
+                            {
+                                writer.WriteValue("Tangent");
+                                writer.WritePropertyName("Error");
+                                writer.WriteValue("Tangent undefined at this angle.");
+                                writer.WriteEndObject();
+                                return double.NaN;
+                            }
+
+                            result = Math.Tan(radians);
                             writer.WriteValue("Tangent");
-                        }
-                        else
-                        {
+                            break;
+
+                        default:
                             writer.WriteValue("Trigonometric Function");
                             writer.WritePropertyName("Error");
-                            writer.WriteValue("Invalid trigonometric function code.");
+                            writer.WriteValue("Invalid trig choice.");
                             writer.WriteEndObject();
-                            return result;
-                        }
+                            return double.NaN;
                     }
                     break;
                 case "log":
